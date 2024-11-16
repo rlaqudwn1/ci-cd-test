@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TestController {
     private final TestService testService;
+    @GetMapping("api/ai")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("연결 된 듯?");
+    }
     @GetMapping()
     public ResponseEntity<?> test(@RequestParam int id){
         return ResponseEntity.ok(testService.findTestById(id));

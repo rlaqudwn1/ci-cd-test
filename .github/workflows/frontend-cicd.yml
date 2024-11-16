@@ -1,0 +1,39 @@
+name: CI/CD for S3
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 푸시되면 자동으로 실행
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 우분투 환경에서 실행
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # 사용할 Node.js 버전 설정
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Build React app
+        run: |
+          npm run build  # 빌드 명령어 (프론트엔드 React 앱 빌드)
+
+      - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@v0.5.0
+        with:
+          source_dir: './build'  # 빌드된 React 앱이 위치한 디렉토리
+          destination_bucket: 'your-s3-bucket-name'  # S3 버킷 이름
+          region: 'ap-northeast-2'  # AWS 리전
+          acl: 'public-read'  # S3 버킷 파일 접근 권한 (퍼블릭 읽기 가능으로 설정)
+
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}  # AWS 액세스 키
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}  # AWS 비밀 키
