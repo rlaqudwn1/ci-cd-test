@@ -10,7 +10,7 @@ function App() {
     const handleFetchData = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://backend-test-env.eba-r2dhmebz.ap-northeast-2.elasticbeanstalk.com/api/sport-facility?facilityName=${facilityName}`);
+            const response = await fetch(`http://Backend-cicd-test-env.eba-r2dhmebz.ap-northeast-2.elasticbeanstalk.com/api/sport-facility?facilityName=${facilityName}`);
             const data = await response.json();
             setFacilityData(data);
         } catch (error) {
@@ -24,7 +24,7 @@ function App() {
     const handleFetchTestData = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://backend-test-env.eba-r2dhmebz.ap-northeast-2.elasticbeanstalk.com/test`);
+            const response = await fetch(`http://Backend-cicd-test-env.eba-r2dhmebz.ap-northeast-2.elasticbeanstalk.com/test`);
             const data = await response.json();
             setTestData(data);
         } catch (error) {
